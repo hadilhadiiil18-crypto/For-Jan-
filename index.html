@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love, Jan ❤️</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0; padding: 0;
+    overflow-x: hidden;
+    font-family: 'Caveat', cursive;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: #5a3e36;
+}
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.page { display: none; width:100%; min-height:100vh; justify-content:center; align-items:center; flex-direction:column; text-align:center; padding:50px; box-sizing:border-box; position:relative;}
+.active { display:flex; }
+
+button {
+    padding:15px 35px; font-size:22px; border:none; border-radius:30px; background:white; color:#ff4d6d; cursor:pointer; transition:0.3s;
+    font-family:'Dancing Script', cursive; margin-top:30px;
+}
+button:hover { transform:scale(1.1); }
+
+/* Heart & Sparkle Shower */
+.heart { position:fixed; top:-10px; font-size:20px; animation: floatDown linear forwards; opacity:0.8; z-index:1; }
+@keyframes floatDown { to { transform: translateY(110vh); opacity:0; } }
+
+.sparkle { position:fixed; width:5px; height:5px; background: rgba(255,255,255,0.8); border-radius:50%; pointer-events:none; animation:sparkleAnim 3s linear infinite; z-index:0; }
+@keyframes sparkleAnim { 0%{transform:translateY(0) scale(1);opacity:1;} 50%{transform:translateY(-20px) scale(1.5);opacity:0.7;} 100%{transform:translateY(20px) scale(1);opacity:0;} }
+
+/* Banner */
+#bannerText {
+    font-family: 'Dancing Script', cursive;
+    font-size:50px;
+    color:#ff4d6d;
+    text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff4d6d;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%{transform:scale(1);opacity:0.8;} 50%{transform:scale(1.1);opacity:1;} 100%{transform:scale(1);opacity:0.8;} }
+
+/* Letter */
+.paper {
+    background:#fffaf5;
+    color:#5a3e36;
+    padding:50px;
+    border-radius:15px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    font-family:'Caveat', cursive;
+    font-size:28px;
+    line-height:1.6;
+    text-align:left;
+    white-space: pre-wrap;
+    max-width:800px;
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+.signature { margin-top:40px; font-family:'Dancing Script', cursive; font-size:40px; text-align:right; }
+
+/* Floating bubbles */
+.bubble { position:fixed; bottom:-50px; color:#ff4d6d; font-size:20px; opacity:0.8; animation: floatUp linear forwards; z-index:1;}
+@keyframes floatUp { to{transform:translateY(-110vh);opacity:0;} }
+
+/* Countdown */
+#countdown { font-size:40px; color:#ff4d6d; font-family:'Dancing Script', cursive; margin-bottom:20px; }
+
+/* Heartbeat glow */
+#heartbeat { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:200px; color: rgba(255,77,109,0.2); animation: heartbeat 1.5s infinite; z-index:0; }
+@keyframes heartbeat { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.1);} }
+</style>
+</head>
+
+<body>
+<div id="page1" class="page active">
+    <h1>For My Love, Jan ❤️</h1>
+    <button onclick="nextPage(2)">Jan, Click to Open My Heart ❤️</button>
+</div>
+
+<div id="page2" class="page">
+    <h1>Shower of Love ❤️</h1>
+    <button onclick="nextPage(3)">Next</button>
+</div>
+
+<div id="page3" class="page">
+    <div id="bannerText">Jan & Hadil — Forever ❤️</div>
+    <button onclick="nextPage(4)">Next</button>
+</div>
+
+<div id="page4" class="page">
+    <div id="countdown">114 days until we are together ❤️</div>
+    <button onclick="nextPage(5)">Next</button>
+</div>
+
+<div id="page5" class="page">
+    <div id="heartbeat">❤️</div>
+    <div class="paper" id="letterText"></div>
+    <div class="signature" id="letterSignature"></div>
+    <button onclick="nextPage(6)">Next</button>
+</div>
+
+<div id="page6" class="page">
+    <h1>Celebrate Our Love! 🎉</h1>
+    <button onclick="nextPage(7)">Next</button>
+</div>
+
+<div id="page7" class="page">
+    <h1>Floating Love Messages 💌</h1>
+    <button onclick="nextPage(8)">The End ❤️</button>
+</div>
+
+<div id="page8" class="page">
+    <h1>Forever and Always ❤️</h1>
+    <p>Love, Hadil 🥰</p>
+</div>
+
+<script>
+let currentPage = 1;
+function nextPage(pageNum){
+    document.getElementById("page"+currentPage).classList.remove("active");
+    document.getElementById("page"+pageNum).classList.add("active");
+    currentPage = pageNum;
+
+    if(pageNum==2) startHeartsAndSparkles();
+    if(pageNum==5) startLetter();
+    if(pageNum==6) startConfettiAndPetals();
+    if(pageNum==7) startFloatingBubbles();
+}
+
+// Hearts & Sparkles
+function startHeartsAndSparkles(){
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="❤️";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.fontSize = (Math.random()*25 + 20)+"px";
+        heart.style.animationDuration = (Math.random()*5 + 5)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),10000);
+    }, 300);
+
+    setInterval(() => {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        sparkle.style.left = Math.random()*window.innerWidth + "px";
+        sparkle.style.top = Math.random()*window.innerHeight + "px";
+        sparkle.style.width = (Math.random()*4+2)+"px";
+        sparkle.style.height = sparkle.style.width;
+        sparkle.style.animationDuration = (Math.random()*2+2)+"s";
+        document.body.appendChild(sparkle);
+        setTimeout(()=>sparkle.remove(),4000);
+    }, 200);
+}
+
+// Letter
+const letterMessage=`My Dearest Jan ❤️
+
+At first, I wanted to give you something simple, but I wanted it to be meaningful — something that speaks directly from my heart. 
+
+Even though we are miles apart, every thought of you fills me with warmth and happiness. You are my safe place, my joy, my best friend, and the love of my life. 
+
+You mean the world to me, Jan. You are not just the man I love — you are the best man in the world in my eyes. I believe in us with all my heart. I know we will make it together, no matter what. 
+
+I can't wait for the day I finally see you, hold you in my arms, and never let go. The day we live together, build our home, create our family, and travel the world hand in hand. Anywhere with you will always feel like home.
+
+Every moment I spend thinking of you reminds me how lucky I am. My heart beats only for you. My soul smiles because of you. Every heartbeat of mine whispers your name, Jan. ❤️
+
+I love you more than words can explain, more than miles can measure, and more than time can test. Forever and always, you are my everything.`;
+
+function startLetter(){
+    let index=0;
+    const textEl=document.getElementById("letterText");
+    const sigEl=document.getElementById("letterSignature");
+
+    function typeWriter(){
+        if(index<letterMessage.length){
+            textEl.innerHTML+=letterMessage.charAt(index);
+            index++;
+            setTimeout(typeWriter,35);
+            window.scrollTo(0,document.body.scrollHeight);
+        } else {
+            sigEl.innerHTML="Forever Yours,<br>Hadil ❤️";
+            createHiddenHearts();
+        }
+    }
+    typeWriter();
+}
+
+// Confetti + rose petals
+function startConfettiAndPetals(){
+    for(let i=0;i<200;i++){
+        setTimeout(()=>{
+            const c=document.createElement("div");
+            c.style.position="fixed";
+            c.style.width="10px";
+            c.style.height="10px";
+            c.style.background= Math.random()>0.5?"#ff4d6d":"#ffb6c1";
+            c.style.left=Math.random()*window.innerWidth+"px";
+            c.style.top=Math.random()*window.innerHeight+"px";
+            c.style.opacity=Math.random();
+            c.style.borderRadius="50%";
+            document.body.appendChild(c);
+            setTimeout(()=>c.remove(),3000);
+        }, i*10);
+    }
+
+    // Rose petals
+    for(let i=0;i<100;i++){
+        setTimeout(()=>{
+            const p=document.createElement("div");
+            p.style.position="fixed";
+            p.style.width="15px";
+            p.style.height="15px";
+            p.style.background="pink";
+            p.style.borderRadius="50%";
+            p.style.left=Math.random()*window.innerWidth+"px";
+            p.style.top="-20px";
+            p.style.opacity=Math.random()*0.8+0.2;
+            p.style.transform = "rotate("+Math.random()*360+"deg)";
+            p.style.animation = "fallPetal "+(Math.random()*5+5)+"s linear forwards";
+            document.body.appendChild(p);
+            setTimeout(()=>p.remove(),6000);
+        }, i*50);
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML=`@keyframes fallPetal { to { transform: translateY(110vh) rotate(360deg); opacity:0; } }`;
+    document.head.appendChild(style);
+}
+
+// Floating Bubbles
+function startFloatingBubbles(){
+    const words=["I love you","Forever","My Heart","You & Me","Always","❤️"];
+    setInterval(()=>{
+        const b=document.createElement("div");
+        b.classList.add("bubble");
+        b.innerHTML=words[Math.floor(Math.random()*words.length)];
+        b.style.left=Math.random()*window.innerWidth+"px";
+        b.style.fontSize=(Math.random()*20+15)+"px";
+        b.style.animationDuration=(Math.random()*5+5)+"s";
+        document.body.appendChild(b);
+        setTimeout(()=>b.remove(),10000);
+    },400);
+}
+
+// Hidden clickable hearts
+function createHiddenHearts(){
+    const messages=["I love you ❤️","Can’t wait to hug you 🥰","You are my everything 💖"];
+    for(let i=0;i<5;i++){
+        const h=document.createElement("div");
+        h.style.position="fixed";
+        h.style.left=Math.random()*90+"vw";
+        h.style.top=Math.random()*80+"vh";
+        h.style.fontSize="30px";
+        h.style.cursor="pointer";
+        h.innerHTML="❤️";
+        h.onclick = ()=>{ alert(messages[Math.floor(Math.random()*messages.length)]); h.remove();}
+        document.body.appendChild(h);
+    }
+}
+
+</script>
+</body>
+</html>
